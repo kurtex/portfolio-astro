@@ -1,62 +1,73 @@
 ---
-import Badge from '../components/Badge.astro';
-import Layout from '../layouts/Layout.astro';
-import LinkedinIcon from '../components/icons/Linkedin.astro';
-import GithubIcon from '../components/icons/Github.astro';
-import MailIcon from '../components/icons/Mail.astro';
-import SocialPills from '../components/SocialPills.astro';
-import Experience from '../components/Experience.astro';
-import SectionContainer from '../components/SectionContainer.astro';
-import BriefCase from '../components/icons/BriefCase.astro';
-import Code from '../components/icons/Code.astro';
-import Projects from '../components/Projects.astro';
-
+import Badge from "../components/Badge.astro";
+import Layout from "../layouts/Layout.astro";
+import LinkedinIcon from "../components/icons/Linkedin.astro";
+import GithubIcon from "../components/icons/Github.astro";
+import MailIcon from "../components/icons/Mail.astro";
+import SocialPills from "../components/SocialPills.astro";
+import Experience from "../components/Experience.astro";
+import SectionContainer from "../components/SectionContainer.astro";
+import BriefCase from "../components/icons/BriefCase.astro";
+import Code from "../components/icons/Code.astro";
+import Projects from "../components/Projects.astro";
 ---
 
-<Layout title="Portfolio de Juanjo - Desarrollador de aplicaciones y páginas web" >
-	<main class="px-4">
-		<SectionContainer class="py-44 pb-40">
-	 	<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-3 pb-6 lg:pb-10">Hey, soy Juanjo <Badge><a href="https://www.linkedin.com/in/juanjovillarreal/" 
-			target="_blank" rel="noopener">NO disponible para trabajar</a></Badge>
-		</h1>
-			<h2 class="text-xl lg:text-2xl text-wrap max-w-[700px]"><span>+6 años de experiencia.</span>  
-			<span class="text-yellow-200/90">Desarrollador web.</span> 
-			<span class="text-red-300/90">De Sevilla, España.</span> 
-			<span class="opacity-85">Creando aplicaciones increíbles</span>
-		</h2>
-		<nav class="flex gap-4 flex-wrap">
-				<SocialPills href="https://www.linkedin.com/in/juanjovillarreal/"> 
-			<LinkedinIcon class="size-4 lg:size-6" />LinkedIn</a>
-			</SocialPills>
-			<SocialPills href="https://github.com/kurtex"> 
-				<GithubIcon class="size-4 lg:size-6" />Github</a>
-				</SocialPills>
-				<SocialPills href="mailto:juanjosevl@gmail.com"> 
-					<MailIcon class="size-4 lg:size-6" />juanjosevl@gmail.com</a>
-					</SocialPills>
-		</nav>
-	</SectionContainer>
-	<SectionContainer id="experience">
-		<h2 class="text-2xl font-semibold mb-6 flex gap-x-2 items-center">
-			<BriefCase class="size-6" />
-			Experiencia
-		</h2>
-		<Experience />
-	</SectionContainer>
-	<SectionContainer id="projects">
-		<h2 class="text-2xl font-semibold mb-6 flex gap-x-2 items-center">
-			<Code class="size-6" />
-			Proyectos
-		</h2>
-		<Projects class="size-6" />
-	</SectionContainer>
-	</main>
+<Layout
+  title="Portfolio de Juanjo - Desarrollador de aplicaciones y páginas web">
+  <main class="px-4">
+    <SectionContainer class="py-44 pb-40">
+      <h1
+        class="text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-3 pb-6 lg:pb-10">
+        Hey, soy Juanjo <Badge
+          href="https://www.linkedin.com/in/juanjovillarreal/"
+          >NO disponible para trabajar</Badge
+        >
+      </h1>
+      <h2 class="text-xl lg:text-2xl text-wrap max-w-[700px]">
+        <span>+6 años de experiencia.</span>
+        <span class="dark:text-yellow-200/90 text-yellow-600/90"
+          >Desarrollador web.</span
+        >
+        <span class="dark:text-red-300/90 text-red-600/90"
+          >De Sevilla, España.</span
+        >
+        <span>Creando aplicaciones increíbles</span>
+      </h2>
+      <nav class="flex gap-4 flex-wrap">
+        <SocialPills href="https://www.linkedin.com/in/juanjovillarreal/">
+          <LinkedinIcon class="size-4 lg:size-6" />LinkedIn</SocialPills
+        >
+
+        <SocialPills href="https://github.com/kurtex">
+          <GithubIcon class="size-4 lg:size-6" />Github</SocialPills
+        >
+
+        <SocialPills href="mailto:juanjosevl@gmail.com">
+          <MailIcon class="size-4 lg:size-6" />juanjosevl@gmail.com</SocialPills
+        >
+      </nav>
+    </SectionContainer>
+    <SectionContainer id="experience">
+      <h2 class="text-2xl font-semibold mb-6 flex gap-x-2 items-center">
+        <BriefCase class="size-6" />
+        Experiencia
+      </h2>
+      <Experience />
+    </SectionContainer>
+    <SectionContainer id="projects">
+      <h2 class="text-2xl font-semibold mb-6 flex gap-x-2 items-center">
+        <Code class="size-6" />
+        Proyectos
+      </h2>
+      <Projects class="size-6" />
+    </SectionContainer>
+  </main>
 </Layout>
 
 <style>
-	main {
-		display: flex;
-		justify-content: center;
-		flex-direction: column;
-	}
+  main {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
 </style>

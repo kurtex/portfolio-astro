@@ -1,32 +1,35 @@
 ---
-import ExperienceItem from "./ExperienceItem.astro"
+import ExperienceItem from "./ExperienceItem.astro";
 
 const EXPERIENCE = [
-    {
-        date: "Actualmente...",
-        title: "Software Engineer II en Appian",
-        description: "Trabajo como ingeniero de software en Appian con RPA y la automatización de procesos robóticos.",
-        link: "#",
-    },
-    {
-        date: "Julio 2017",
-        title: "Desarrollador de software en Novayre",
-        description: "Desarrollador de una aplicación de firmas digitales para grandes empresas y personas públicas.",
-    },
-    {
-        date: "April 2022",
-        title: "E-Commerce UI code in Tailwind CSS",
-        description: "Get started with dozens of web components and interactive elements built on top of Tailwind CSS.",
-    },
-]
+  {
+    date: "Actualmente...",
+    title: "Software Engineer II en Appian",
+    description:
+      "Trabajo como ingeniero de software en Appian con RPA y la automatización de procesos robóticos.",
+    // link: "#",
+  },
+  {
+    date: "Julio 2017",
+    title: "Desarrollador de software en Novayre",
+    description:
+      "Desarrollador de una aplicación de firmas digitales para grandes empresas y personas públicas.",
+  },
+  {
+    date: "April 2022",
+    title: "E-Commerce UI code in Tailwind CSS",
+    description:
+      "Get started with dozens of web components and interactive elements built on top of Tailwind CSS.",
+  },
+];
 ---
-<ol class="relative border-s border-gray-200 dark:border-gray-700 ml-3">
-    {
-        EXPERIENCE.map((item) => (
-            <li class="mb-10 ms-4">
-                    <ExperienceItem {...item} />
-            </li>
-        ))
-    }                  
-</ol>
 
+<ol class="relative border-s border-gray-500 dark:border-gray-700 ml-3">
+  {
+    EXPERIENCE.map((item) => (
+      <li class="mb-10 ms-4">
+        <ExperienceItem {...item} />
+      </li>
+    ))
+  }
+</ol>
