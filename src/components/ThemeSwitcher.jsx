@@ -64,7 +64,7 @@ const ThemeIcon = (props) => {
       <button
         id="themeButton"
         onClick={() => toggleMenu()}
-        className="w-full rounded-full dark:bg-gray-700 p-2 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none"
+        className="w-full rounded-full  p-2 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none"
       >
         <span id="currentIcon" className="flex items-center size-6">
           {/* <!-- Ícono por defecto (sol) --> */}

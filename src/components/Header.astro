@@ -5,23 +5,128 @@ import ThemeSwitcher from "./ThemeSwitcher.jsx";
 import System from "./icons/System.astro";
 ---
 
-<header class="flex justify-between py-5 w-full xl:w-[1120px] mx-auto">
+<header class="flex justify-between py-5 w-full xl:w-[740px] mx-auto">
   <img
     src="https://media.licdn.com/dms/image/v2/C4D03AQEObSBngrMayQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1579773207204?e=1730332800&v=beta&t=llVYY2U0DwoHzDYKU6oDR9TXO2enHePAxf7XuZ4Fo6A"
     class="rounded-full flex size-9"
     alt="logo"
   />
-
-  <nav class="flex flex-row gap-x-10 opacity-80 items-center">
-    <a href="#top">Inicio</a>
-    <a href="#experience">Experiencia</a>
-    <a href="#projects">Proyectos</a>
-    <a href="#about">Sobre mí</a>
-    <a href="#contact">Contacto</a>
-    <ThemeSwitcher client:only>
-      <div slot="system"><System /></div>
-      <div slot="light"><LightIcon /></div>
-      <div slot="dark"><DarkIcon /></div>
-    </ThemeSwitcher>
-  </nav>
+  <div
+    id="navContainer"
+    class="flex">
+    <nav
+      id="headerNav"
+      class="flex flex-row gap-x-5 items-center top-0 transition-all duration-300">
+      <a href="#top">Inicio</a>
+      <a href="#experience">Experiencia</a>
+      <a href="#projects">Proyectos</a>
+      <a href="#about">Sobre mí</a>
+      <a href="mailto:juanjosevl@gmail.com">Contacto</a>
+      <ThemeSwitcher client:only>
+        <div slot="system"><System /></div>
+        <div slot="light"><LightIcon /></div>
+        <div slot="dark"><DarkIcon /></div>
+      </ThemeSwitcher>
+    </nav>
+  </div>
 </header>
+
+<script>
+  // JavaScript para cambiar estilos en base al scroll
+  window.addEventListener("scroll", function () {
+    const navbarContainer = document.getElementById("navContainer");
+    const navbar = document.getElementById("headerNav");
+    let currentScroll = window.scrollY;
+
+    changeActiveLink();
+    turnIntoStickyNav(currentScroll, navbarContainer, navbar);
+  });
+
+  function turnIntoStickyNav(
+    currentScroll: number,
+    navbarContainer: HTMLElement | null,
+    navbar: HTMLElement | null
+  ) {
+    if (currentScroll > 40) {
+      // Cambia la clase cuando haces scroll más de 40px
+      navbarContainer?.classList.add(
+        "fixed",
+        "top-0",
+        "w-[740px]",
+        "justify-center",
+        "z-[999]",
+        "mt-5"
+      );
+
+      navbar?.classList.add(
+        "fixed",
+        "top-0",
+        "justify-center",
+        "mt-5",
+        "dark:bg-gray-900",
+        "bg-gray-100",
+        "border-text-black/90",
+        "py-1",
+        "px-4",
+        "rounded-full"
+      );
+    } else {
+      // Vuelve a las clases originales
+      navbarContainer?.classList.remove(
+        "fixed",
+        "top-0",
+        "w-[740px]",
+        "justify-center",
+        "z-[999]",
+        "mt-5"
+      );
+
+      navbar?.classList.remove(
+        "fixed",
+        "top-0",
+        "justify-center",
+        "z-[999]",
+        "mt-5",
+        "dark:bg-gray-900",
+        "bg-gray-100",
+        "border-text-black/90",
+        "py-1",
+        "px-4",
+        "rounded-full",
+        "text-blue-500"
+      );
+    }
+  }
+
+  // Función para cambiar el estilo del enlace activo
+  function changeActiveLink() {
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll("nav#headerNav a");
+    let index = sections.length;
+    let currentSection = 0;
+
+    // Recorrer todas las secciones y verificar cuál está visible
+    sections.forEach((section, index) => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+
+      // Verificar si el scroll está dentro del rango de la sección
+      if (
+        window.scrollY >= sectionTop - 50 &&
+        window.scrollY < sectionTop + sectionHeight - 50
+      ) {
+        currentSection = index; // Guardamos el índice de la sección visible
+      }
+    });
+
+    // Remover clase activa de todos los enlaces
+    navLinks.forEach((link) => link.classList.remove("text-blue-500"));
+    // Añadir clase activa al enlace correspondiente
+
+    navLinks[currentSection].classList.add("text-blue-500");
+
+    if (window.scrollY < 40) {
+      navLinks[currentSection].classList.remove("text-blue-500");
+    }
+  }
+</script>
