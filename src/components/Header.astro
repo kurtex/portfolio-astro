@@ -14,11 +14,11 @@ import System from "./icons/System.astro";
 
   <nav class="flex flex-row gap-x-10 opacity-80 items-center">
     <a href="#top">Inicio</a>
-    <a href="#about">Sobre mí</a>
     <a href="#experience">Experiencia</a>
     <a href="#projects">Proyectos</a>
+    <a href="#about">Sobre mí</a>
     <a href="#contact">Contacto</a>
-    <ThemeSwitcher client:load>
+    <ThemeSwitcher client:only>
       <div slot="system"><System /></div>
       <div slot="light"><LightIcon /></div>
       <div slot="dark"><DarkIcon /></div>

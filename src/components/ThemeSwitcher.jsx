@@ -2,23 +2,38 @@ import { useEffect, useState } from "preact/hooks";
 import DarkIcon from "./icons/DarkIcon.astro";
 import LightIcon from "./icons/LightIcon.astro";
 
-const THEME_ITEM = "theme";
-const ICONS = {
+const DARKMODE_ITEM = "darkMode";
+const MODES = {
   LIGHT: "light",
   DARK: "dark",
   SYSTEM: "system",
 };
 
+const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
 const ThemeIcon = (props) => {
-  const [storedTheme, setStoredTheme] = useState("");
-  const [displayedIcon, setDisplayedIcon] = useState("");
+  const [darkModeIcon, setDarkModeIcon] = useState(null);
+
+  const updateTheme = (e) => {
+    setDarkMode(!!e.matches ? MODES.DARK : MODES.LIGHT);
+  };
 
   useEffect(() => {
-    const theme = getTheme();
-    setStoredTheme(theme);
-
-    setTheme(theme); // Establecer el tema según la preferencia almacenada o del sistema
-  }, [storedTheme]);
+    if (localStorage.getItem(DARKMODE_ITEM)) {
+      const theme = getTheme();
+      setDarkMode(theme); // Establecer el tema según la preferencia almacenada o del sistema
+      setDarkModeIcon(theme);
+    } else {
+      setDarkModeIcon(null);
+      updateTheme(mediaQuery);
+      // Escucha cambios en el esquema de color
+      mediaQuery.addEventListener("change", updateTheme);
+      // Limpia el listener cuando el componente se desmonte
+      return () => {
+        mediaQuery.removeEventListener("change", updateTheme);
+      };
+    }
+  }, []);
 
   // Función para alternar el menú desplegable
   function toggleMenu() {
@@ -27,27 +42,19 @@ const ThemeIcon = (props) => {
   }
 
   // Función para establecer el tema (claro u oscuro)
-  function setTheme(theme) {
+  function setDarkMode(mode) {
     const html = document.documentElement;
-    let currentIcon = document.getElementById("currentIcon");
 
-    if (theme === ICONS.LIGHT) {
-      html.classList.remove(ICONS.DARK);
-      localStorage.setItem(THEME_ITEM, theme); // Almacenar tema oscuro
-      setStoredTheme(theme);
-    } else if (theme === ICONS.DARK) {
-      html.classList.add(ICONS.DARK);
-      localStorage.setItem(THEME_ITEM, theme); // Almacenar tema oscuro
-      setStoredTheme(theme);
+    if (mode === MODES.DARK) {
+      html.classList.add(mode);
     } else {
-      localStorage.removeItem(THEME_ITEM);
-      setStoredTheme("");
+      html.classList.remove(MODES.DARK);
     }
 
-    if (html.classList.contains("dark")) {
-      html.style.colorScheme = "dark";
+    if (html.classList.contains(MODES.DARK)) {
+      html.style.colorScheme = MODES.DARK;
     } else {
-      html.style.colorScheme = "light";
+      html.style.colorScheme = MODES.LIGHT;
     }
   }
 
@@ -61,11 +68,11 @@ const ThemeIcon = (props) => {
       >
         <span id="currentIcon" className="flex items-center size-6">
           {/* <!-- Ícono por defecto (sol) --> */}
-          {displayedIcon === ICONS.LIGHT
-            ? props.light
-            : displayedIcon === ICONS.DARK
+          {darkModeIcon === null
+            ? props.system
+            : darkModeIcon === MODES.DARK
               ? props.dark
-              : props.system}
+              : props.light}
         </span>
       </button>
 
@@ -78,10 +85,11 @@ const ThemeIcon = (props) => {
           {/* <!-- Opción de preferencias del sistema --> */}
           <button
             onClick={() => {
-              setTheme(ICONS.SYSTEM);
+              localStorage.removeItem(DARKMODE_ITEM);
+              setDarkMode(getTheme());
+              setDarkModeIcon(null);
               // Cerrar el menú después de la selección
               toggleMenu();
-              setDisplayedIcon(ICONS.SYSTEM);
             }}
             id="switchToLight"
             className="flex items-center gap-x-3 w-full px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600"
@@ -92,10 +100,11 @@ const ThemeIcon = (props) => {
           {/* <!-- Opción de tema claro --> */}
           <button
             onClick={() => {
-              setTheme(ICONS.LIGHT);
+              localStorage.setItem(DARKMODE_ITEM, MODES.LIGHT);
+              setDarkMode(MODES.LIGHT);
+              setDarkModeIcon(MODES.LIGHT);
               // Cerrar el menú después de la selección
               toggleMenu();
-              setDisplayedIcon(ICONS.LIGHT);
             }}
             id="switchToLight"
             className="flex items-center gap-x-3 w-full px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600"
@@ -107,10 +116,11 @@ const ThemeIcon = (props) => {
           <button
             id="switchToDark"
             onClick={() => {
-              setTheme(ICONS.DARK);
+              localStorage.setItem(DARKMODE_ITEM, MODES.DARK);
+              setDarkMode(MODES.DARK);
+              setDarkModeIcon(MODES.DARK);
               // Cerrar el menú después de la selección
               toggleMenu();
-              setDisplayedIcon(ICONS.DARK);
             }}
             className="flex items-center gap-x-3 w-full px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600"
           >
@@ -130,10 +140,10 @@ const ThemeIcon = (props) => {
  * @returns The current theme
  */
 function getTheme() {
-  return localStorage.getItem(THEME_ITEM)
-    ? localStorage.getItem(THEME_ITEM)
-    : window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? ICONS.DARK
-      : ICONS.LIGHT;
+  return localStorage.getItem(DARKMODE_ITEM)
+    ? localStorage.getItem(DARKMODE_ITEM)
+    : mediaQuery.matches
+      ? MODES.DARK
+      : MODES.LIGHT;
 }
 export default ThemeIcon;
