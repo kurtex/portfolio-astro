@@ -4,6 +4,9 @@ import React from "./icons/React.astro";
 import Tailwind from "./icons/Tailwind.astro";
 import LinkIcon from "./icons/LinkIcon.astro";
 import ProjectButton from "./ProjectButton.astro";
+import Node from "./icons/Node.astro";
+import NextJs from "./icons/NextJs.astro";
+import Supabase from "./icons/Supabase.astro";
 
 const TAGS = {
   REACT: {
@@ -16,6 +19,22 @@ const TAGS = {
     class: "bg-[#0c649b] text-white",
     icon: Tailwind,
   },
+  NODEJS: {
+    // TODO Fix this
+    name: "Node.js",
+    class: "bg-[#3c873a] text-white",
+    icon: Node,
+  },
+  NEXTJS: {
+    name: "Next.js",
+    class: "bg-[#000000] text-white",
+    icon: NextJs,
+  },
+  SUPABASE: {
+    name: "Supabase",
+    class: "bg-[#000000] text-white",
+    icon: Supabase,
+  },
 };
 
 const PROJECTS = [
@@ -27,6 +46,20 @@ const PROJECTS = [
     github: "https://github.com/kurtex/projects",
     image: "/assets/projects/proyectos.webp",
     tags: [TAGS.REACT, TAGS.TAILWINDCSS],
+  },
+  {
+    title: "Shorten URL",
+    description: "Recortador de URLs con autenticación de usuarios.",
+    link: "https://shorten-app-ten.vercel.app/",
+    github: "https://github.com/kurtex/shortenApp",
+    image: "/assets/projects/shorten.webp",
+    tags: [
+      TAGS.REACT,
+      TAGS.TAILWINDCSS,
+      TAGS.NODEJS,
+      TAGS.NEXTJS,
+      TAGS.SUPABASE,
+    ],
   },
 ];
 ---
@@ -43,7 +76,7 @@ const PROJECTS = [
         <h3 class="text-2xl font-semibold text-yellow-600 dark:text-yellow-200 mb-2">
           {title}
         </h3>
-        <ul class="flex gap-x-2 flex-row mb-4">
+        <ul class="flex gap-2 flex-row mb-4 flex-wrap w-[300px] ">
           {tags.map((tag) => (
             <li>
               <span
